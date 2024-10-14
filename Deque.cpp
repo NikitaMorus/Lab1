@@ -25,3 +25,10 @@ int Deque::removeRear() {
 bool Deque::isEmpty() const {
     return q1.isEmpty() && q2.isEmpty();
 }
+
+void Deque::display() const {
+    std::cout << "Front deque: ";
+    q1.display();
+    std::cout << "Rear deque: ";
+    q2.display();
+}
