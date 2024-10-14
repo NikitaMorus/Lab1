@@ -1,17 +1,23 @@
 #ifndef DEQUE_H
 #define DEQUE_H
 
+#include <iostream>
 #include "Queue.h"
 
 class Deque {
-    Queue q1, q2;
+private:
+    Queue q1;
+    Queue q2;
 
 public:
-    void addFront(int value);   // Добавить элемент в начало дека
-    void addRear(int value);    // Добавить элемент в конец дека
-    int removeFront();          // Удалить элемент с начала дека
-    int removeRear();           // Удалить элемент с конца дека
-    bool isEmpty() const;       // Проверка на пустоту дека
+    void addFront(int value);
+    void addRear(int value);
+    int removeFront();
+    int removeRear();
+    bool isEmpty() const;
+
+    // РќРѕРІС‹Р№ РјРµС‚РѕРґ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РґРµРєР°
+    void display() const;
 };
 
 #endif
