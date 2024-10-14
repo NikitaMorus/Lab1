@@ -1,17 +1,21 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+#include <iostream>
 #include <queue>
-#include <stdexcept>
 
 class Queue {
+private:
     std::queue<int> q;
 
 public:
-    void enqueue(int value);  // Добавить элемент в очередь
-    int dequeue();            // Удалить элемент из очереди
-    bool isEmpty() const;     // Проверка на пустоту
-    int front() const;        // Получить передний элемент
+    void enqueue(int value);
+    int dequeue();
+    bool isEmpty() const;
+    int front() const;  // РњРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РїРµСЂРІРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
+
+    // РњРµС‚РѕРґ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РѕС‡РµСЂРµРґРё
+    void display() const;
 };
 
 #endif
