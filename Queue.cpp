@@ -6,9 +6,9 @@ void Queue::enqueue(int value) {
 
 int Queue::dequeue() {
     if (!q.empty()) {
-        int value = q.front();
+        int front = q.front();
         q.pop();
-        return value;
+        return front;
     }
     throw std::out_of_range("Queue is empty!");
 }
@@ -19,7 +19,16 @@ bool Queue::isEmpty() const {
 
 int Queue::front() const {
     if (!q.empty()) {
-        return q.front();
+        return q.front();  // Возвращаем первый элемент без удаления
     }
     throw std::out_of_range("Queue is empty!");
+}
+
+void Queue::display() const {
+    std::queue<int> temp = q;  // Копируем очередь для отображения
+    while (!temp.empty()) {
+        std::cout << temp.front() << " ";
+        temp.pop();
+    }
+    std::cout << std::endl;
 }
