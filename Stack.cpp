@@ -1,30 +1,34 @@
 #include "Stack.h"
 
 void Stack::push(int value) {
-    Queue q2;
-    q2.enqueue(value);
-
-    while (!q1.isEmpty()) {
-        q2.enqueue(q1.dequeue());
-    }
-
-    q1 = q2;
+    s.push(value);
 }
 
 int Stack::pop() {
-    if (!q1.isEmpty()) {
-        return q1.dequeue();
+    if (!s.empty()) {
+        int top = s.top();
+        s.pop();
+        return top;
     }
     throw std::out_of_range("Stack is empty!");
 }
 
 bool Stack::isEmpty() const {
-    return q1.isEmpty();
+    return s.empty();
 }
 
 int Stack::top() const {
-    if (!q1.isEmpty()) {
-        return q1.front();
+    if (!s.empty()) {
+        return s.top();  // Возвращаем верхний элемент без удаления
     }
     throw std::out_of_range("Stack is empty!");
+}
+
+void Stack::display() const {
+    std::stack<int> temp = s;  // Копируем стек для отображения
+    while (!temp.empty()) {
+        std::cout << temp.top() << " ";
+        temp.pop();
+    }
+    std::cout << std::endl;
 }
