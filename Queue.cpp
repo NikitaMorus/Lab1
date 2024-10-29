@@ -1,34 +1,54 @@
 #include "Queue.h"
 
+Queue::Queue(int size) : capacity(size), frontIndex(0), rearIndex(-1), count(0) {
+    data = new int[capacity];
+}
+
+Queue::~Queue() {
+    delete[] data;
+}
+
 void Queue::enqueue(int value) {
-    q.push(value);
+    if (isFull()) {
+        throw std::overflow_error("Очередь заполнена!");
+    }
+    rearIndex = (rearIndex + 1) % capacity;
+    data[rearIndex] = value;
+    count++;
 }
 
 int Queue::dequeue() {
-    if (!q.empty()) {
-        int front = q.front();
-        q.pop();
-        return front;
+    if (isEmpty()) {
+        throw std::underflow_error("Очередь пуста!");
     }
-    throw std::out_of_range("Queue is empty!");
-}
-
-bool Queue::isEmpty() const {
-    return q.empty();
+    int value = data[frontIndex];
+    frontIndex = (frontIndex + 1) % capacity;
+    count--;
+    return value;
 }
 
 int Queue::front() const {
-    if (!q.empty()) {
-        return q.front();  // Возвращаем первый элемент без удаления
+    if (isEmpty()) {
+        throw std::underflow_error("Очередь пуста!");
     }
-    throw std::out_of_range("Queue is empty!");
+    return data[frontIndex];
+}
+
+bool Queue::isEmpty() const {
+    return count == 0;
+}
+
+bool Queue::isFull() const {
+    return count == capacity;
 }
 
 void Queue::display() const {
-    std::queue<int> temp = q;  // Копируем очередь для отображения
-    while (!temp.empty()) {
-        std::cout << temp.front() << " ";
-        temp.pop();
+    if (isEmpty()) {
+        std::cout << "Очередь пуста!" << std::endl;
+        return;
+    }
+    for (int i = 0; i < count; i++) {
+        std::cout << data[(frontIndex + i) % capacity] << " ";
     }
     std::cout << std::endl;
 }
