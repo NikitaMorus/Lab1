@@ -1,21 +1,14 @@
 #ifndef STACK_H
 #define STACK_H
 
-#include <iostream>
-#include <stack>
+#include "Queue.h"
 
-class Stack {
-private:
-    std::stack<int> s;
-
+class Stack : public Queue {
 public:
+    Stack(int size = 10);
     void push(int value);
     int pop();
-    bool isEmpty() const;
-    int top() const;  // Метод для получения верхнего элемента
-
-    // Метод для отображения стека
-    void display() const;
+    int top() const;
 };
 
 #endif
