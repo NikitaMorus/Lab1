@@ -2,19 +2,25 @@
 #define QUEUE_H
 
 #include <iostream>
-#include <queue>
+#include <stdexcept>
 
 class Queue {
-private:
-    std::queue<int> q;
+protected:
+    int* data;
+    int frontIndex;
+    int rearIndex;
+    int capacity;
+    int count;
 
 public:
-    void enqueue(int value);
-    int dequeue();
-    bool isEmpty() const;
-    int front() const;  // Метод для получения первого элемента
+    Queue(int size = 10);
+    virtual ~Queue();
 
-    // Метод для отображения очереди
+    virtual void enqueue(int value);
+    virtual int dequeue();
+    virtual int front() const;
+    bool isEmpty() const;
+    bool isFull() const;
     void display() const;
 };
 
