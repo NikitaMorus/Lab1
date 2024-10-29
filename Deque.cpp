@@ -1,34 +1,30 @@
 #include "Deque.h"
 
+Deque::Deque(int size) : Queue(size) {}
+
 void Deque::addFront(int value) {
-    q1.enqueue(value);
+    if (isFull()) {
+        throw std::overflow_error("Дек заполнен!");
+    }
+    frontIndex = (frontIndex - 1 + capacity) % capacity;
+    data[frontIndex] = value;
+    count++;
 }
 
 void Deque::addRear(int value) {
-    q2.enqueue(value);
+    enqueue(value);  // Используем метод добавления из Queue
 }
 
 int Deque::removeFront() {
-    if (!q1.isEmpty()) {
-        return q1.dequeue();
-    }
-    throw std::out_of_range("Deque is empty at front!");
+    return dequeue();  // Используем метод удаления из Queue
 }
 
 int Deque::removeRear() {
-    if (!q2.isEmpty()) {
-        return q2.dequeue();
+    if (isEmpty()) {
+        throw std::underflow_error("Дек пуст!");
     }
-    throw std::out_of_range("Deque is empty at rear!");
-}
-
-bool Deque::isEmpty() const {
-    return q1.isEmpty() && q2.isEmpty();
-}
-
-void Deque::display() const {
-    std::cout << "Front deque: ";
-    q1.display();
-    std::cout << "Rear deque: ";
-    q2.display();
+    int value = data[rearIndex];
+    rearIndex = (rearIndex - 1 + capacity) % capacity;
+    count--;
+    return value;
 }
