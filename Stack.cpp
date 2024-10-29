@@ -1,34 +1,24 @@
 #include "Stack.h"
 
+Stack::Stack(int size) : Queue(size) {}
+
 void Stack::push(int value) {
-    s.push(value);
+    enqueue(value);  // Используем метод добавления из Queue
 }
 
 int Stack::pop() {
-    if (!s.empty()) {
-        int top = s.top();
-        s.pop();
-        return top;
+    if (isEmpty()) {
+        throw std::underflow_error("Стек пуст!");
     }
-    throw std::out_of_range("Stack is empty!");
-}
-
-bool Stack::isEmpty() const {
-    return s.empty();
+    int value = data[rearIndex];
+    rearIndex = (rearIndex - 1 + capacity) % capacity;
+    count--;
+    return value;
 }
 
 int Stack::top() const {
-    if (!s.empty()) {
-        return s.top();  // Возвращаем верхний элемент без удаления
+    if (isEmpty()) {
+        throw std::underflow_error("Стек пуст!");
     }
-    throw std::out_of_range("Stack is empty!");
-}
-
-void Stack::display() const {
-    std::stack<int> temp = s;  // Копируем стек для отображения
-    while (!temp.empty()) {
-        std::cout << temp.top() << " ";
-        temp.pop();
-    }
-    std::cout << std::endl;
+    return data[rearIndex];
 }
