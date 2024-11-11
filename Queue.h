@@ -2,9 +2,9 @@
 #define QUEUE_H
 
 #include <iostream>
-#include <stdexcept>
+#include "Base.h"
 
-class Queue {
+class Queue : public Base {
 protected:
     int* data;
     int frontIndex;
@@ -14,14 +14,15 @@ protected:
 
 public:
     Queue(int size = 10);
+    Queue(const Queue& other);
     virtual ~Queue();
-
-    virtual void enqueue(int value);
-    virtual int dequeue();
-    virtual int front() const;
+    void enqueue(int value);
+    int dequeue();
+    int front() const;
     bool isEmpty() const;
     bool isFull() const;
-    void display() const;
+    void display() const override;
+    void setValue(int value) override;
 };
 
 #endif

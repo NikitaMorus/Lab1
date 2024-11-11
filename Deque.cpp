@@ -4,7 +4,7 @@ Deque::Deque(int size) : Queue(size) {}
 
 void Deque::addFront(int value) {
     if (isFull()) {
-        throw std::overflow_error("Р”РµРє Р·Р°РїРѕР»РЅРµРЅ!");
+        throw std::overflow_error("Дек заполнен!");
     }
     frontIndex = (frontIndex - 1 + capacity) % capacity;
     data[frontIndex] = value;
@@ -12,16 +12,16 @@ void Deque::addFront(int value) {
 }
 
 void Deque::addRear(int value) {
-    enqueue(value);  // РСЃРїРѕР»СЊР·СѓРµРј РјРµС‚РѕРґ РґРѕР±Р°РІР»РµРЅРёСЏ РёР· Queue
+    enqueue(value);  // Используем метод добавления из Queue
 }
 
 int Deque::removeFront() {
-    return dequeue();  // РСЃРїРѕР»СЊР·СѓРµРј РјРµС‚РѕРґ СѓРґР°Р»РµРЅРёСЏ РёР· Queue
+    return dequeue();  // Используем метод удаления из Queue
 }
 
 int Deque::removeRear() {
     if (isEmpty()) {
-        throw std::underflow_error("Р”РµРє РїСѓСЃС‚!");
+        throw std::underflow_error("Дек пуст!");
     }
     int value = data[rearIndex];
     rearIndex = (rearIndex - 1 + capacity) % capacity;

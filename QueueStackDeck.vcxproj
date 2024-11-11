@@ -127,12 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Base.h" />
     <ClInclude Include="Deque.h" />
+    <ClInclude Include="Keeper.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Deque.cpp" />
+    <ClCompile Include="Keeper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Queue.cpp" />
     <ClCompile Include="Stack.cpp" />

@@ -1,14 +1,19 @@
 #include <iostream>
+#include <string>
 #include "Queue.h"
 #include "Stack.h"
 #include "Deque.h"
+#include "Base.h"
+#include "Keeper.h"
 
 void showMenu() {
-    std::cout << "1. ÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ Ð¾Ñ‡ÐµÑ€ÐµÐ´ÑŒÑŽ\n";
-    std::cout << "2. ÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ ÑÑ‚ÐµÐºÐ¾Ð¼\n";
-    std::cout << "3. ÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ Ð´ÐµÐºÐ¾Ð¼\n";
-    std::cout << "4. Ð’Ñ‹Ñ…Ð¾Ð´\n";
-    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²Ð°Ñˆ Ð²Ñ‹Ð±Ð¾Ñ€: ";
+    std::cout << "1. Îïåðàöèè ñ î÷åðåäüþ\n";
+    std::cout << "2. Îïåðàöèè ñ ñòåêîì\n";
+    std::cout << "3. Îïåðàöèè ñ äåêîì\n";
+    std::cout << "4. Ñîõðàíèòü êîíòåéíåð â ôàéë\n";
+    std::cout << "5. Çàãðóçèòü êîíòåéíåð èç ôàéëà\n";
+    std::cout << "6. Âûõîä\n";
+    std::cout << "Ââåäèòå âàø âûáîð: ";
 }
 
 void queueOperations() {
@@ -16,24 +21,24 @@ void queueOperations() {
     int choice, value;
 
     do {
-        std::cout << "\nÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ Ð¾Ñ‡ÐµÑ€ÐµÐ´ÑŒÑŽ:\n";
-        std::cout << "1. Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð² Ð¾Ñ‡ÐµÑ€ÐµÐ´ÑŒ\n";
-        std::cout << "2. Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ Ð¸Ð· Ð¾Ñ‡ÐµÑ€ÐµÐ´Ð¸\n";
-        std::cout << "3. ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ Ð¿ÐµÑ€ÐµÐ´Ð½Ð¸Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚\n";
-        std::cout << "4. ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ Ð²ÑÐµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ñ‹ Ð¾Ñ‡ÐµÑ€ÐµÐ´Ð¸\n";
-        std::cout << "5. Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ Ð² Ð³Ð»Ð°Ð²Ð½Ð¾Ðµ Ð¼ÐµÐ½ÑŽ\n";
-        std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²Ð°Ñˆ Ð²Ñ‹Ð±Ð¾Ñ€: ";
+        std::cout << "\nÎïåðàöèè ñ î÷åðåäüþ:\n";
+        std::cout << "1. Äîáàâèòü â î÷åðåäü\n";
+        std::cout << "2. Óäàëèòü èç î÷åðåäè\n";
+        std::cout << "3. Ïîêàçàòü ïåðåäíèé ýëåìåíò\n";
+        std::cout << "4. Ïîêàçàòü âñå ýëåìåíòû î÷åðåäè\n";
+        std::cout << "5. Âåðíóòüñÿ â ãëàâíîå ìåíþ\n";
+        std::cout << "Ââåäèòå âàø âûáîð: ";
         std::cin >> choice;
 
         switch (choice) {
         case 1:
-            std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð´Ð»Ñ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ñ: ";
+            std::cout << "Ââåäèòå çíà÷åíèå äëÿ äîáàâëåíèÿ: ";
             std::cin >> value;
             queue.enqueue(value);
             break;
         case 2:
             try {
-                std::cout << "Ð£Ð´Ð°Ð»ÐµÐ½Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: " << queue.dequeue() << std::endl;
+                std::cout << "Óäàëåíî çíà÷åíèå: " << queue.dequeue() << std::endl;
             }
             catch (const std::exception& e) {
                 std::cerr << e.what() << std::endl;
@@ -41,14 +46,14 @@ void queueOperations() {
             break;
         case 3:
             try {
-                std::cout << "ÐŸÐµÑ€ÐµÐ´Ð½Ð¸Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚: " << queue.front() << std::endl;
+                std::cout << "Ïåðåäíèé ýëåìåíò: " << queue.front() << std::endl;
             }
             catch (const std::exception& e) {
                 std::cerr << e.what() << std::endl;
             }
             break;
         case 4:
-            std::cout << "ÐžÑ‡ÐµÑ€ÐµÐ´ÑŒ: ";
+            std::cout << "Î÷åðåäü: ";
             queue.display();
             break;
         }
@@ -60,24 +65,24 @@ void stackOperations() {
     int choice, value;
 
     do {
-        std::cout << "\nÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ ÑÑ‚ÐµÐºÐ¾Ð¼:\n";
-        std::cout << "1. Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð² ÑÑ‚ÐµÐº\n";
-        std::cout << "2. Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ Ð¸Ð· ÑÑ‚ÐµÐºÐ°\n";
-        std::cout << "3. ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ Ð²ÐµÑ€Ñ…Ð½Ð¸Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚\n";
-        std::cout << "4. ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ Ð²ÑÐµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ñ‹ ÑÑ‚ÐµÐºÐ°\n";
-        std::cout << "5. Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ Ð² Ð³Ð»Ð°Ð²Ð½Ð¾Ðµ Ð¼ÐµÐ½ÑŽ\n";
-        std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²Ð°Ñˆ Ð²Ñ‹Ð±Ð¾Ñ€: ";
+        std::cout << "\nÎïåðàöèè ñ ñòåêîì:\n";
+        std::cout << "1. Äîáàâèòü â ñòåê\n";
+        std::cout << "2. Óäàëèòü èç ñòåêà\n";
+        std::cout << "3. Ïîêàçàòü âåðõíèé ýëåìåíò\n";
+        std::cout << "4. Ïîêàçàòü âñå ýëåìåíòû ñòåêà\n";
+        std::cout << "5. Âåðíóòüñÿ â ãëàâíîå ìåíþ\n";
+        std::cout << "Ââåäèòå âàø âûáîð: ";
         std::cin >> choice;
 
         switch (choice) {
         case 1:
-            std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð´Ð»Ñ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ñ: ";
+            std::cout << "Ââåäèòå çíà÷åíèå äëÿ äîáàâëåíèÿ: ";
             std::cin >> value;
             stack.push(value);
             break;
         case 2:
             try {
-                std::cout << "Ð£Ð´Ð°Ð»ÐµÐ½Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: " << stack.pop() << std::endl;
+                std::cout << "Óäàëåíî çíà÷åíèå: " << stack.pop() << std::endl;
             }
             catch (const std::exception& e) {
                 std::cerr << e.what() << std::endl;
@@ -85,14 +90,14 @@ void stackOperations() {
             break;
         case 3:
             try {
-                std::cout << "Ð’ÐµÑ€Ñ…Ð½Ð¸Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚: " << stack.top() << std::endl;
+                std::cout << "Âåðõíèé ýëåìåíò: " << stack.top() << std::endl;
             }
             catch (const std::exception& e) {
                 std::cerr << e.what() << std::endl;
             }
             break;
         case 4:
-            std::cout << "Ð¡Ñ‚ÐµÐº: ";
+            std::cout << "Ñòåê: ";
             stack.display();
             break;
         }
@@ -104,30 +109,30 @@ void dequeOperations() {
     int choice, value;
 
     do {
-        std::cout << "\nÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ Ð´ÐµÐºÐ¾Ð¼:\n";
-        std::cout << "1. Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð² Ð½Ð°Ñ‡Ð°Ð»Ð¾\n";
-        std::cout << "2. Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð² ÐºÐ¾Ð½ÐµÑ†\n";
-        std::cout << "3. Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ Ñ Ð½Ð°Ñ‡Ð°Ð»Ð°\n";
-        std::cout << "4. Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ Ñ ÐºÐ¾Ð½Ñ†Ð°\n";
-        std::cout << "5. ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ Ð²ÑÐµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ñ‹ Ð´ÐµÐºÐ°\n";
-        std::cout << "6. Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ Ð² Ð³Ð»Ð°Ð²Ð½Ð¾Ðµ Ð¼ÐµÐ½ÑŽ\n";
-        std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²Ð°Ñˆ Ð²Ñ‹Ð±Ð¾Ñ€: ";
+        std::cout << "\nÎïåðàöèè ñ äåêîì:\n";
+        std::cout << "1. Äîáàâèòü â íà÷àëî\n";
+        std::cout << "2. Äîáàâèòü â êîíåö\n";
+        std::cout << "3. Óäàëèòü ñ íà÷àëà\n";
+        std::cout << "4. Óäàëèòü ñ êîíöà\n";
+        std::cout << "5. Ïîêàçàòü âñå ýëåìåíòû äåêà\n";
+        std::cout << "6. Âåðíóòüñÿ â ãëàâíîå ìåíþ\n";
+        std::cout << "Ââåäèòå âàø âûáîð: ";
         std::cin >> choice;
 
         switch (choice) {
         case 1:
-            std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð´Ð»Ñ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ð² Ð½Ð°Ñ‡Ð°Ð»Ð¾: ";
+            std::cout << "Ââåäèòå çíà÷åíèå äëÿ äîáàâëåíèÿ â íà÷àëî: ";
             std::cin >> value;
             deque.addFront(value);
             break;
         case 2:
-            std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð´Ð»Ñ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ð² ÐºÐ¾Ð½ÐµÑ†: ";
+            std::cout << "Ââåäèòå çíà÷åíèå äëÿ äîáàâëåíèÿ â êîíåö: ";
             std::cin >> value;
             deque.addRear(value);
             break;
         case 3:
             try {
-                std::cout << "Ð£Ð´Ð°Ð»ÐµÐ½Ð¾ Ñ Ð½Ð°Ñ‡Ð°Ð»Ð°: " << deque.removeFront() << std::endl;
+                std::cout << "Óäàëåíî ñ íà÷àëà: " << deque.removeFront() << std::endl;
             }
             catch (const std::exception& e) {
                 std::cerr << e.what() << std::endl;
@@ -135,22 +140,39 @@ void dequeOperations() {
             break;
         case 4:
             try {
-                std::cout << "Ð£Ð´Ð°Ð»ÐµÐ½Ð¾ Ñ ÐºÐ¾Ð½Ñ†Ð°: " << deque.removeRear() << std::endl;
+                std::cout << "Óäàëåíî ñ êîíöà: " << deque.removeRear() << std::endl;
             }
             catch (const std::exception& e) {
                 std::cerr << e.what() << std::endl;
             }
             break;
         case 5:
-            std::cout << "Ð”ÐµÐº: ";
+            std::cout << "Äåê: ";
             deque.display();
             break;
         }
     } while (choice != 6);
 }
 
+void saveToFile(Keeper& keeper) {
+    std::string filename;
+    std::cout << "Ââåäèòå èìÿ ôàéëà äëÿ ñîõðàíåíèÿ: ";
+    std::cin >> filename;
+    keeper.saveToFile(filename);
+    std::cout << "Ñîõðàíåíèå ïðîøëî óñïåøíî.\n";
+}
+
+void loadFromFile(Keeper& keeper) {
+    std::string filename;
+    std::cout << "Ââåäèòå èìÿ ôàéëà äëÿ çàãðóçêè: ";
+    std::cin >> filename;
+    keeper.loadFromFile(filename);
+    std::cout << "Çàãðóçêà ïðîøëà óñïåøíî.\n";
+}
+
 int main() {
     setlocale(LC_ALL, "RUS");
+    Keeper keeper; // Õðàíèòåëü âñåõ êîíòåéíåðîâ
     int choice;
 
     do {
@@ -168,12 +190,18 @@ int main() {
             dequeOperations();
             break;
         case 4:
-            std::cout << "Ð’Ñ‹Ñ…Ð¾Ð´...\n";
+            saveToFile(keeper);
+            break;
+        case 5:
+            loadFromFile(keeper);
+            break;
+        case 6:
+            std::cout << "Âûõîä...\n";
             break;
         default:
-            std::cerr << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ñ‹Ð±Ð¾Ñ€. ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð°.\n";
+            std::cerr << "Íåâåðíûé âûáîð. Ïîïðîáóéòå ñíîâà.\n";
         }
-    } while (choice != 4);
+    } while (choice != 6);
 
     return 0;
 }

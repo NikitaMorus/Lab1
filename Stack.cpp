@@ -3,12 +3,12 @@
 Stack::Stack(int size) : Queue(size) {}
 
 void Stack::push(int value) {
-    enqueue(value);  // РСЃРїРѕР»СЊР·СѓРµРј РјРµС‚РѕРґ РґРѕР±Р°РІР»РµРЅРёСЏ РёР· Queue
+    enqueue(value);  // Используем метод добавления из Queue
 }
 
 int Stack::pop() {
     if (isEmpty()) {
-        throw std::underflow_error("РЎС‚РµРє РїСѓСЃС‚!");
+        throw std::underflow_error("Стек пуст!");
     }
     int value = data[rearIndex];
     rearIndex = (rearIndex - 1 + capacity) % capacity;
@@ -18,7 +18,7 @@ int Stack::pop() {
 
 int Stack::top() const {
     if (isEmpty()) {
-        throw std::underflow_error("РЎС‚РµРє РїСѓСЃС‚!");
+        throw std::underflow_error("Стек пуст!");
     }
     return data[rearIndex];
 }
