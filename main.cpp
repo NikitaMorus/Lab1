@@ -1,179 +1,114 @@
-#include <iostream>
-#include <string>
+#include "Keeper.h"
 #include "Queue.h"
 #include "Stack.h"
 #include "Deque.h"
-#include "Base.h"
-#include "Keeper.h"
+#include <iostream>
 
 void showMenu() {
-    std::cout << "1. Операции с очередью\n";
-    std::cout << "2. Операции с стеком\n";
-    std::cout << "3. Операции с деком\n";
-    std::cout << "4. Сохранить контейнер в файл\n";
-    std::cout << "5. Загрузить контейнер из файла\n";
-    std::cout << "6. Выход\n";
+    std::cout << "\n============== МЕНЮ ==============\n";
+    std::cout << "1. Добавить новый объект\n";
+    std::cout << "2. Удалить объект по индексу\n";
+    std::cout << "3. Показать все объекты\n";
+    std::cout << "4. Сохранить объекты в файл\n";
+    std::cout << "5. Загрузить объекты из файла\n";
+    std::cout << "6. Выйти из программы\n";
+    std::cout << "==================================\n";
     std::cout << "Введите ваш выбор: ";
 }
 
-void queueOperations() {
-    Queue queue;
-    int choice, value;
+void addObject(Keeper& keeper) {
+    int type;
+    std::cout << "\nВыберите тип объекта:\n";
+    std::cout << "1. Очередь (Queue)\n";
+    std::cout << "2. Стек (Stack)\n";
+    std::cout << "3. Дек (Deque)\n";
+    std::cout << "Введите ваш выбор: ";
+    std::cin >> type;
 
-    do {
-        std::cout << "\nОперации с очередью:\n";
-        std::cout << "1. Добавить в очередь\n";
-        std::cout << "2. Удалить из очереди\n";
-        std::cout << "3. Показать передний элемент\n";
-        std::cout << "4. Показать все элементы очереди\n";
-        std::cout << "5. Вернуться в главное меню\n";
-        std::cout << "Введите ваш выбор: ";
-        std::cin >> choice;
+    int value;
+    std::cout << "Введите значение для объекта: ";
+    std::cin >> value;
 
-        switch (choice) {
-        case 1:
-            std::cout << "Введите значение для добавления: ";
-            std::cin >> value;
-            queue.enqueue(value);
-            break;
-        case 2:
-            try {
-                std::cout << "Удалено значение: " << queue.dequeue() << std::endl;
-            }
-            catch (const std::exception& e) {
-                std::cerr << e.what() << std::endl;
-            }
-            break;
-        case 3:
-            try {
-                std::cout << "Передний элемент: " << queue.front() << std::endl;
-            }
-            catch (const std::exception& e) {
-                std::cerr << e.what() << std::endl;
-            }
-            break;
-        case 4:
-            std::cout << "Очередь: ";
-            queue.display();
-            break;
-        }
-    } while (choice != 5);
+    Base* obj = nullptr;
+
+    switch (type) {
+    case 1:
+        obj = new Queue(10);
+        break;
+    case 2:
+        obj = new Stack(10);
+        break;
+    case 3:
+        obj = new Deque(10);
+        break;
+    default:
+        std::cout << "Ошибка: Неверный выбор типа объекта.\n";
+        return;
+    }
+
+    if (obj) {
+        obj->setValue(value);  // Это добавит один элемент
+        keeper.addObject(obj);
+        std::cout << "Объект успешно добавлен!\n";
+    }
 }
 
-void stackOperations() {
-    Stack stack;
-    int choice, value;
 
-    do {
-        std::cout << "\nОперации с стеком:\n";
-        std::cout << "1. Добавить в стек\n";
-        std::cout << "2. Удалить из стека\n";
-        std::cout << "3. Показать верхний элемент\n";
-        std::cout << "4. Показать все элементы стека\n";
-        std::cout << "5. Вернуться в главное меню\n";
-        std::cout << "Введите ваш выбор: ";
-        std::cin >> choice;
+void removeObject(Keeper& keeper) {
+    keeper.displayObjects();
 
-        switch (choice) {
-        case 1:
-            std::cout << "Введите значение для добавления: ";
-            std::cin >> value;
-            stack.push(value);
-            break;
-        case 2:
-            try {
-                std::cout << "Удалено значение: " << stack.pop() << std::endl;
-            }
-            catch (const std::exception& e) {
-                std::cerr << e.what() << std::endl;
-            }
-            break;
-        case 3:
-            try {
-                std::cout << "Верхний элемент: " << stack.top() << std::endl;
-            }
-            catch (const std::exception& e) {
-                std::cerr << e.what() << std::endl;
-            }
-            break;
-        case 4:
-            std::cout << "Стек: ";
-            stack.display();
-            break;
-        }
-    } while (choice != 5);
+    if (keeper.getSize() == 0) {
+        std::cout << "Удаление невозможно: список объектов пуст.\n";
+        return;
+    }
+
+    int index;
+    std::cout << "Введите индекс объекта для удаления (1..." << keeper.getSize() << "): ";
+    std::cin >> index;
+
+    try {
+        keeper.removeObject(index - 1);
+        std::cout << "Объект успешно удален!\n";
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Ошибка: " << e.what() << "\n";
+    }
 }
 
-void dequeOperations() {
-    Deque deque;
-    int choice, value;
-
-    do {
-        std::cout << "\nОперации с деком:\n";
-        std::cout << "1. Добавить в начало\n";
-        std::cout << "2. Добавить в конец\n";
-        std::cout << "3. Удалить с начала\n";
-        std::cout << "4. Удалить с конца\n";
-        std::cout << "5. Показать все элементы дека\n";
-        std::cout << "6. Вернуться в главное меню\n";
-        std::cout << "Введите ваш выбор: ";
-        std::cin >> choice;
-
-        switch (choice) {
-        case 1:
-            std::cout << "Введите значение для добавления в начало: ";
-            std::cin >> value;
-            deque.addFront(value);
-            break;
-        case 2:
-            std::cout << "Введите значение для добавления в конец: ";
-            std::cin >> value;
-            deque.addRear(value);
-            break;
-        case 3:
-            try {
-                std::cout << "Удалено с начала: " << deque.removeFront() << std::endl;
-            }
-            catch (const std::exception& e) {
-                std::cerr << e.what() << std::endl;
-            }
-            break;
-        case 4:
-            try {
-                std::cout << "Удалено с конца: " << deque.removeRear() << std::endl;
-            }
-            catch (const std::exception& e) {
-                std::cerr << e.what() << std::endl;
-            }
-            break;
-        case 5:
-            std::cout << "Дек: ";
-            deque.display();
-            break;
-        }
-    } while (choice != 6);
-}
-
-void saveToFile(Keeper& keeper) {
+void saveObjects(Keeper& keeper) {
     std::string filename;
     std::cout << "Введите имя файла для сохранения: ";
     std::cin >> filename;
-    keeper.saveToFile(filename);
-    std::cout << "Сохранение прошло успешно.\n";
+
+    try {
+        keeper.saveToFile(filename);
+        std::cout << "Объекты успешно сохранены в файл \"" << filename << "\".\n";
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Ошибка при сохранении: " << e.what() << "\n";
+    }
 }
 
-void loadFromFile(Keeper& keeper) {
+void loadObjects(Keeper& keeper) {
     std::string filename;
     std::cout << "Введите имя файла для загрузки: ";
     std::cin >> filename;
-    keeper.loadFromFile(filename);
-    std::cout << "Загрузка прошла успешно.\n";
+
+    try {
+        keeper.loadFromFile(filename);
+        std::cout << "Объекты успешно загружены из файла \"" << filename << "\".\n";
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Ошибка при загрузке: " << e.what() << "\n";
+    }
 }
 
 int main() {
     setlocale(LC_ALL, "RUS");
-    Keeper keeper; // Хранитель всех контейнеров
+    Keeper keeper;
     int choice;
+
+    std::cout << "Добро пожаловать в программу управления структурами данных!\n";
 
     do {
         showMenu();
@@ -181,25 +116,25 @@ int main() {
 
         switch (choice) {
         case 1:
-            queueOperations();
+            addObject(keeper);
             break;
         case 2:
-            stackOperations();
+            removeObject(keeper);
             break;
         case 3:
-            dequeOperations();
+            keeper.displayObjects();
             break;
         case 4:
-            saveToFile(keeper);
+            saveObjects(keeper);
             break;
         case 5:
-            loadFromFile(keeper);
+            loadObjects(keeper);
             break;
         case 6:
-            std::cout << "Выход...\n";
+            std::cout << "Выход из программы...\n";
             break;
         default:
-            std::cerr << "Неверный выбор. Попробуйте снова.\n";
+            std::cout << "Ошибка: Неверный выбор. Попробуйте снова.\n";
         }
     } while (choice != 6);
 

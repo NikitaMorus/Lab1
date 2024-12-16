@@ -1,7 +1,6 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include <iostream>
 #include "Base.h"
 
 class Queue : public Base {
@@ -14,15 +13,16 @@ protected:
 
 public:
     Queue(int size = 10);
-    Queue(const Queue& other);
     virtual ~Queue();
-    void enqueue(int value);
-    int dequeue();
-    int front() const;
-    bool isEmpty() const;
-    bool isFull() const;
-    void display() const override;
-    void setValue(int value) override;
+
+    void enqueue(int value); // Добавить в очередь
+    int dequeue(); // Удалить из очереди
+    int front() const; // Получить первое значение в очереди
+    bool isEmpty() const; // Проверить, пуста ли очередь
+    bool isFull() const; // Проверить, полна ли очередь
+    void display() const override; // Показать все элементы
+    void setValue(int value) override; // Установить значение
+    int getValue() const override; // Получить значение
 };
 
 #endif

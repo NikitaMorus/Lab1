@@ -1,6 +1,14 @@
 #include "Deque.h"
+#include <stdexcept>
+#include <iostream>
 
-Deque::Deque(int size) : Queue(size) {}
+Deque::Deque(int size) : Queue(size) {
+    std::cout << "Вызван конструктор деки\n";
+}
+
+Deque::~Deque() {
+    std::cout << "Вызван деструктор деки\n";
+}
 
 void Deque::addFront(int value) {
     if (isFull()) {
@@ -8,15 +16,15 @@ void Deque::addFront(int value) {
     }
     frontIndex = (frontIndex - 1 + capacity) % capacity;
     data[frontIndex] = value;
-    count++;
+    ++count;
 }
 
 void Deque::addRear(int value) {
-    enqueue(value);  // Используем метод добавления из Queue
+    enqueue(value);
 }
 
 int Deque::removeFront() {
-    return dequeue();  // Используем метод удаления из Queue
+    return dequeue();
 }
 
 int Deque::removeRear() {
@@ -25,6 +33,21 @@ int Deque::removeRear() {
     }
     int value = data[rearIndex];
     rearIndex = (rearIndex - 1 + capacity) % capacity;
-    count--;
+    --count;
     return value;
 }
+void Deque::display() const {
+    if (isEmpty()) {
+        std::cout << "Дек пуст!" << std::endl;
+        return;
+    }
+
+    std::cout << "Дек: ";
+    for (int i = 0; i < count; ++i) {
+        std::cout << data[(frontIndex + i) % capacity] << " ";
+    }
+    std::cout << std::endl;
+}
+
+
+
